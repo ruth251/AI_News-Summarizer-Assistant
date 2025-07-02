@@ -99,3 +99,13 @@ def test_summarize_duplicate_sentences():
     summary = summarize_text(sentences, num_sentences=2)
     assert summary.count("AI is good") >= 2
 # Summary Stripped of Extra Spaces
+def test_summarize_trims_whitespace():
+    text = "   AI is powerful.   Machine learning is part of AI.   "
+    doc = nlp(text)
+    sentences = list(doc.sents)
+
+    summary = summarize_text(sentences, num_sentences=2)
+    assert not summary.startswith(" ")
+    assert not summary.endswith(" ")
+
+    
