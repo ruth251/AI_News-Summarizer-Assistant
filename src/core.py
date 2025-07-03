@@ -1,6 +1,6 @@
 from summarizer_utils import summarize_text
 from qa_utils import answer_query
-from summarizer_from_url import extract_text_from_url
+from summarize_from_url import extract_text_from_url
 
 
 def handle_article(text: str, question: str = None) -> dict:
