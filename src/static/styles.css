@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  background: #151a23;
+  color: #fff;
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #10141b;
+  padding: 0 48px 0 48px;
+  border-bottom: 1px solid #232b3b;
+  height: 72px;
+}
+
+.header-left .site-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #e6e8ee;
+}
+
+.header-center {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.profile-circle {
+  width: 44px;
+  height: 44px;
+  background: #232b3b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #fff;
+}
+
+.summarizer-header-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.summarizer-title {
+  font-size: 1.22rem;
+  font-weight: 700;
+  margin-bottom: 1px;
+  color: #fff;
+}
+
+.summarizer-subtitle {
+  font-size: 0.97rem;
+  color: #b1b5c3;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.header-link {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #c7c9d3;
+  margin-right: 8px;
+}
+
+.header-icon {
+  font-size: 1.3rem;
+  color: #c7c9d3;
+  cursor: pointer;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 48px;
+}
+
+.summarizer-section {
+  background: #181e26;
+  padding: 38px 42px 32px 42px;
+  border-radius: 18px;
+  width: 650px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.generate-title {
+  font-size: 1.18rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: 0.2px;
+}
+
+.generate-summary {
+  margin-bottom: 0;
+  background: transparent;
+}
+
+.tab-group {
+  display: flex;
+  margin-bottom: 12px;
+  gap: 0;
+}
+
+.tab {
+  background: #232b3b;
+  color: #b1b5c3;
+  border: none;
+  padding: 11px 0;
+  flex: 1 1 0;
+  cursor: pointer;
+  font-size: 1.04rem;
+  border-radius: 8px 8px 0 0;
+  outline: none;
+  transition: background 0.2s;
+  font-weight: 600;
+  margin-right: 2px;
+}
+
+.tab:last-child {
+  margin-right: 0;
+}
+
+.tab.active {
+  background: #181e26;
+  color: #fff;
+  font-weight: 700;
+}
+
+.input {
+  width: 100%;
+  background: #232b3b;
+  border: none;
+  padding: 16px 18px;
+  border-radius: 7px;
+  color: #fff;
+  font-size: 1.07rem;
+  margin-bottom: 14px;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border 0.2s;
+}
+
+.input:focus {
+  border: 1.5px solid #2e7de1;
+}
+
+#textInput {
+  min-height: 68px;
+  max-height: 400px;
+  overflow-y: hidden;
+  resize: none;
+}
+
+.generate-btn {
+  width: 100%;
+  padding: 15px 0;
+  background: #fff;
+  color: #232b3b;
+  border: none;
+  border-radius: 7px;
+  font-size: 1.09rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.generate-btn:hover {
+  background: #e6e8ee;
+  color: #151a23;
+}
+
+.btn-icon {
+  font-size: 1.18rem;
+  vertical-align: middle;
+}
+
+.my-summaries {
+  background: #1a1f2b;
+  border-radius: 12px;
+  padding: 22px 18px 18px 18px;
+  margin-top: 10px;
+}
+
+.summaries-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.summaries-title {
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.summaries-icons .icon {
+  font-size: 1.22rem;
+  color: #b1b5c3;
+  margin-left: 12px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.search-input {
+  width: 100%;
+  background: #232b3b;
+  border: none;
+  padding: 11px 15px;
+  border-radius: 7px;
+  color: #fff;
+  font-size: 1.04rem;
+  margin-bottom: 13px;
+  outline: none;
+  font-family: inherit;
+}
+
+.summaries-list {
+  min-height: 38px;
+  color: #b1b5c3;
+  font-size: 1.01rem;
+}
+
+.no-summaries {
+  text-align: center;
+  color: #b1b5c3;
+  font-size: 1.01rem;
+  padding: 12px 0;
+}
+
+@media (max-width: 800px) {
+  .summarizer-section {
+    width: 98vw;
+    padding: 18px 4vw 18px 4vw;
+  }
+  main {
+    margin-top: 18px;
+  }
+  header {
+    padding: 0 12px;
+  }
+}

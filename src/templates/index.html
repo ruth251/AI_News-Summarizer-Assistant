@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Daily Chronicle - News Summarizer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <span class="site-title">The Daily Chronicle</span>
+    </div>
+    <div class="header-center">
+      <div class="profile-circle">NS</div>
+      <div class="summarizer-header-text">
+        <div class="summarizer-title">News Summarizer</div>
+        <div class="summarizer-subtitle">AI Breakthrough Could Change Medicine Forever</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="header-link">TECHCRUNCH</span>
+      <span class="header-icon">&#9681;</span>
+    </div>
+  </header>
+  <main>
+    <section class="summarizer-section">
+      <div class="generate-title">Generate a New Summary</div>
+      <div class="generate-summary">
+        <div class="tab-group">
+          <button class="tab active" id="urlTab">From URL</button>
+          <button class="tab" id="textTab">From Text</button>
+        </div>
+        <input type="text" id="urlInput" class="input" placeholder="https://example.com/news-article">
+        <textarea id="textInput" class="input" placeholder="Paste your news article text here..." style="display:none"></textarea>
+        <input type="text" id="questionInput" class="input" placeholder="Optional: Ask a question about the article">
+        <button class="generate-btn" id="generateBtn">
+          <span class="btn-icon">&#9881;</span> Generate Summary
+        </button>
+      </div>
+      <div class="my-summaries">
+        <div class="summaries-header">
+          <span class="summaries-title">My Summaries</span>
+          <span class="summaries-icons">
+            <span class="icon">&#128263;</span>
+            <span class="icon">&#8942;</span>
+          </span>
+        </div>
+        <input type="text" class="search-input" placeholder="Search summaries...">
+        <div class="summaries-list" id="summariesList">
+          <div class="no-summaries">No summaries yet. Generate your first summary above!</div>
+        </div>
+      </div>
+      <div class="saved-summaries" id="savedSummaries">
+        <h3>Saved Summaries</h3>
+        <div class="summary-history">Loading saved summaries...</div>
+      </div>
+      
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
