@@ -108,4 +108,107 @@ def test_summarize_trims_whitespace():
     assert not summary.startswith(" ")
     assert not summary.endswith(" ")
 
+def test_valid_url_fetch(self):
+        test_url = "https://www.bbc.com/news/world-us-canada-66808518"  
+        article_text = get_article_text_from_url(test_url)
+
+def test_invalid_url(self):
+        result = get_article_text_from_url("htp:/invalid-url")
+        self.assertEqual(result, "")
+
+    @patch('requests.get', side_effect=ConnectionError("Failed to connect"))
+def test_non_existing_domain(self, mock_get):
+        result = get_article_text_from_url("http://nonexistent.domain")
+        self.assertEqual(result, "")
+  
+    @patch('requests.get')
+def test_non_html_content(self, mock_get):
+        mock_get.return_value = Mock(status_code=200, text="") 
+        mock_get.return_value.raise_for_status = lambda: None
+
+        result = get_article_text_from_url("http://image-url.com")
+        self.assertEqual(result, "")
+     
+    @patch('requests.get', side_effect=Timeout("Request timed out"))
+def test_timeout(self, mock_get):
+        result = get_article_text_from_url("http://timeout-url.com")
+        self.assertEqual(result, "")
+
+
+
+def test_strip_whitespace(self):
+    raw = "   Hello World!   "
+    cleaned = accept_raw_text(raw)
+    self.assertEqual(cleaned, "Hello World!")
+
+def test_empty_string(self):
+    raw = ""
+    cleaned = accept_raw_text(raw)
+    self.assertEqual(cleaned, "")
+
+def test_no_whitespace(self):
+    raw = "CleanText"
+    cleaned = accept_raw_text(raw)
+    self.assertEqual(cleaned, "CleanText")
+
+def test_only_whitespace(self):
+    raw = "     "
+    cleaned = accept_raw_text(raw)
+    self.assertEqual(cleaned, "")
+
+def test_special_characters(self):
+    text = "  ***Hello World!!!***  "
+    result = accept_raw_text(text)
+    self.assertEqual(result, "***Hello World!!!***")
+
+
+
+
+def test_stores_valid_summary(self):
+    conn = sqlite3.connect(":memory:")
+    store_summary_in_db("Test summary", url="https://example.com", db_path=":memory:")
+    cursor = conn.cursor()
+    cursor.execute("SELECT summary FROM summaries")
+    result = cursor.fetchone()
+    self.assertIsNotNone(result)
+    conn.close()
+  
+def test_stores_summary_without_url(self):
+    conn = sqlite3.connect(":memory:")
+    store_summary_in_db("Summary without URL", db_path=":memory:")
+    cursor = conn.cursor()
+    cursor.execute("SELECT url, summary FROM summaries")
+    url, summary = cursor.fetchone()
+    self.assertIsNone(url)
+    self.assertEqual(summary, "Summary without URL")
+    conn.close()
+
+def test_timestamp_is_stored(self):
+    conn = sqlite3.connect(":memory:")
+    store_summary_in_db("Check timestamp", db_path=":memory:")
+    cursor = conn.cursor()
+    cursor.execute("SELECT created_at FROM summaries")
+    (created_at,) = cursor.fetchone()
+    self.assertRegex(created_at, r"\d{4}-\d{2}-\d{2}T")  
+    conn.close()
+
+def test_multiple_summaries(self):
+    conn = sqlite3.connect(":memory:")
+    store_summary_in_db("First summary", db_path=":memory:")
+    store_summary_in_db("Second summary", db_path=":memory:")
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM summaries")
+    (count,) = cursor.fetchone()
+    self.assertGreaterEqual(count, 2)
+    conn.close()
+
+def test_empty_summary(self):
+    conn = sqlite3.connect(":memory:")
+    store_summary_in_db("", db_path=":memory:")
+    cursor = conn.cursor()
+    cursor.execute("SELECT summary FROM summaries")
+    (summary,) = cursor.fetchone()
+    self.assertEqual(summary, "")
+    conn.close()
+
     
