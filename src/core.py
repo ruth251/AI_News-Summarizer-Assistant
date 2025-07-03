@@ -15,6 +15,11 @@ def handle_article(text: str, question: str = None) -> dict:
 
 
 def handle_link(url: str, question: str = None) -> dict:
+    # Validate input types
+    if not isinstance(url, str):
+        raise TypeError("URL must be a string")
+    if question is not None and not isinstance(question, str):
+        raise TypeError("Question must be a string or None")
 
     try:
         article_text = extract_text_from_url(url)
@@ -22,6 +27,7 @@ def handle_link(url: str, question: str = None) -> dict:
         return {"error": str(e)}
 
     return handle_article(article_text, question)
+
 
 
 def answer_user_question(summary: str, question: str) -> str:
