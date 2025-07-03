@@ -1,0 +1,9 @@
+/project
+    /app
+        /static
+            bg1.png
+        /templates
+        __init__.py
+        routes.py
+    config.py
+    run.py

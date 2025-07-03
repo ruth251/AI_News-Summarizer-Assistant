@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>News Summarizer</title>
+</head>
+<body>
+    <div id="root">
+        <header>
+            <div class="logo">NS</div>
+            <button id="dark-mode-toggle">Toggle Dark Mode</button>
+        </header>
+        <div class="container">
+            <main>
+                
+                <form id="summaryForm">
+                    <h2 class="generate-summary">Generate Summary</h2>
+                    <input type="url" id="articleUrl" placeholder="From URL" required>
+                    <input type="text" id="articleText" placeholder="From Text" required>
+                    <button type="submit">Generate Summary</button>
+                </form>
+                <section id="mySummaries">
+                    <h3>My Summaries</h3>
+                    <ul id="summaryList"></ul>
+                </section>
+            </main>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
