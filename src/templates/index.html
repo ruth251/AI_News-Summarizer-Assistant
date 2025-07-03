@@ -33,6 +33,7 @@
         </div>
         <input type="text" id="urlInput" class="input" placeholder="https://example.com/news-article">
         <textarea id="textInput" class="input" placeholder="Paste your news article text here..." style="display:none"></textarea>
+        <input type="text" id="questionInput" class="input" placeholder="Optional: Ask a question about the article">
         <button class="generate-btn" id="generateBtn">
           <span class="btn-icon">&#9881;</span> Generate Summary
         </button>
@@ -50,6 +51,11 @@
           <div class="no-summaries">No summaries yet. Generate your first summary above!</div>
         </div>
       </div>
+      <div class="saved-summaries" id="savedSummaries">
+        <h3>Saved Summaries</h3>
+        <div class="summary-history">Loading saved summaries...</div>
+      </div>
+      
     </section>
   </main>
   <script src="{{ url_for('static', filename='script.js') }}"></script>
