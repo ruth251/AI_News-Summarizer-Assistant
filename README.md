@@ -1,44 +1,42 @@
-# AI_News-Summarizer-Assistant
-<!-- Testing Tools & Libraries -->
-The tests are written using the pytest framework, and the spaCy library is used for natural language processing, specifically for sentence segmentation and token-level filtering. The tests focus on verifying the behavior and robustness of two core functions: parse_text(text) and summarize_text(sentences, num_sentences=3).
+# 📰 AI News Summarizer Assistant
 
- <!-- Tests for parse_text(text) -->
-# test_parse_text_raises_type_error
-This test checks if the parse_text function raises a TypeError when it receives non-string inputs such as integers, None, or lists. This ensures the function validates its input type properly.
+An AI-powered assistant that summarizes news articles from user-provided URLs or plain text using Natural Language Processing (NLP) with spaCy. The system extracts key points from content and answers user questions about the summary.
 
-# test_parse_text_empty_string
-Verifies that when an empty string ("") is passed to parse_text, the result is an empty list. This confirms the function doesn't break or misbehave on blank inputs.
+---
 
-# test_parse_text_whitespace_only
-Similar to the empty string case, this test checks if a string made entirely of whitespace or newline characters returns an empty list.
+## 📌 Features
 
-# test_parse_text_single_sentence
-Ensures that a well-formed single sentence returns a list containing exactly one sentence. This confirms basic sentence parsing is working correctly.
+- ✅ Accepts input via **URL** or **raw text**
+- ✂️ Extracts clean article content using **BeautifulSoup**
+- 🧠 Summarizes key sentences using **spaCy**
+- 💬 Answers user questions based on the summary
+- 🧪 Fully tested with `pytest`
 
-# test_parse_text_long_text
-Tests the function with a long input consisting of the same sentence repeated many times (e.g., 1000 times). This confirms the function's scalability and performance under high-load input.
+---
 
-# test_parse_text_special_characters
-Verifies that text containing sentences with different punctuation marks (!, ?, .) is split correctly into individual sentences.
+## 🛠️ Tech Stack
 
-<!-- Tests for summarize_text(sentences, num_sentences=3) -->
-# test_equal_score_sentences
-Checks if the function returns the first N sentences when all sentences have equal importance scores. This helps ensure ordering is preserved in the case of ties.
+- **Python 3.11**
+- [spaCy](https://spacy.io) for NLP
+- [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) for HTML parsing
+- `pytest` for unit testing
+- Flask (optional integration for UI - future work)
 
-# test_all_stop_words
-This test uses sentences made entirely of stop words to see if the summary handles "low-value" text gracefully, either returning an empty string or including such sentences anyway.
+---
 
-# test_empty_sentence_list & test_summarize_empty_input
-These two tests ensure that when an empty list of sentences is passed to summarize_text, the result is an empty string. It protects against crashes when the input is invalid or empty.
+## 🚀 Getting Started
 
-# test_summarize_zero_requested
-Checks what happens if the number of sentences requested is zero. The function should return an empty string without errors.
+### 1. Clone the Repository
+```bash
+git clone https://github.com/ruth251/AI_News-Summarizer-Assistant.git
+cd AI_News-Summarizer-Assistant
 
-# test_summarize_long_input
-Passes a long list of sentences (e.g., repeating "AI is evolving." 100 times) and ensures that the function returns a proper summary with the correct number of sentences. This confirms efficiency and stability.
+2. Create a Virtual Environment
+    python -m venv venv
+    source venv/bin/activate   On Windows: venv\Scripts\activate
 
-# test_summarize_duplicate_sentences
-Ensures that if the input contains duplicated sentences, the summary still includes them as appropriate, without any filtering or deduplication unless explicitly handled.
+3. Install Dependencies
+    pip install -r requirements.txt
 
-# test_summarize_trims_whitespace
-Confirms that the output summary does not have leading or trailing whitespace, even if the original sentences were padded.
+4. Run the Application
+    python app.py
