@@ -211,4 +211,127 @@ def test_empty_summary(self):
     self.assertEqual(summary, "")
     conn.close()
 
+3. No Summary Provided
+def test_answer_no_summary():
+    question = "What happened?"
+    result = answer_user_question("", question)
+    assert result == "No summary available to answer from."
+
+# 4. Both Summary and Question Are Empty
+def test_answer_empty_inputs():
+    result = answer_user_question("", "")
+    # Should prioritize summary check, so expect summary error message
+    assert result == "No summary available to answer from."
+
+# 5. Question Unrelated to Summary
+def test_answer_irrelevant_question():
+    summary = "This is about climate change."
+    question = "What's the capital of France?"
+    result = answer_user_question(summary, question)
+    assert isinstance(result, str)
+    assert result.strip() != ""
+
+# 6. Very Long Summary
+def test_answer_very_long_summary():
+    summary = "Climate change affects the planet. " * 1000
+    question = "What is the effect of climate change?"
+    result = answer_user_question(summary, question)
+    assert isinstance(result, str)
+    assert len(result.strip()) > 0
+
+# 7. Very Long Question
+def test_answer_very_long_question():
+    summary = "AI is transforming the world."
+    question = ("Can you explain how artificial intelligence is impacting "
+                "industry, health, science, education, politics, economy, jobs, "
+                "and daily life in general terms?") * 10
+    result = answer_user_question(summary, question)
+    assert isinstance(result, str)
+
+# 8. Ambiguous Question
+def test_answer_ambiguous_question():
+    summary = "The new policy affects working hours."
+    question = "What about that?"
+    result = answer_user_question(summary, question)
+    assert isinstance(result, str)
+    assert result.strip() != ""
+
+# 9. Non-String Inputs
+@pytest.mark.parametrize("bad_input", [None, 123, 5.5, [], {}])
+def test_answer_non_string_inputs(bad_input):
+    with pytest.raises(TypeError):
+        answer_user_question(bad_input, "valid question")
+    with pytest.raises(TypeError):
+        answer_user_question("valid summary", bad_input)
+
+# 10. Question in Another Language
+def test_answer_question_multilingual():
+    summary = "This is about U.S. elections."
+    question = "¿Quién ganó las elecciones?"
+    result = answer_user_question(summary, question)
+    assert isinstance(result, str)
+
+# 11. Summary in Another Language
+def test_answer_summary_multilingual():
+    summary = "Ceci est un résumé en français."
+    question = "What is it about?"
+    result = answer_user_question(summary, question)
+    assert isinstance(result, str)
+
+# 12. Summary with Special Characters or Formatting
+def test_answer_special_characters():
+    summary = "<html><body>This is a 📰 summary!</body></html>"
+    question = "What is this about?"
+    result = answer_user_question(summary, question)
+    assert isinstance(result, str)
+
+# 13. Simulated Model/Internal Error
+@patch("core.answer_query", side_effect=Exception("Model crashed"))
+def test_answer_model_failure(mock_answer_query):
+    with pytest.raises(Exception) as exc_info:
+        answer_user_question("Some summary", "Some question")
+    assert "Model crashed" in str(exc_info.value)
+def test_handle_parsed_article_normal_case(capsys):
+    article_text = "This is a well-formed article with meaningful content."
+    handle_parsed_article(article_text)
+    captured = capsys.readouterr()
+    assert captured.out.strip() != ""  # prints some summary text
+
+
+def test_handle_parsed_article_very_short_text(capsys):
+    article_text = "Short sentence."
+    handle_parsed_article(article_text)
+    captured = capsys.readouterr()
+    assert captured.out.strip() != ""  # likely prints a summary similar to input
+
+
+def test_handle_parsed_article_special_characters(capsys):
+    article_text = "This is a test 📰 with emojis 😊 and <html> tags."
+    handle_parsed_article(article_text)
+    captured = capsys.readouterr()
+    assert captured.out.strip() != ""
+    # Optionally check no raw html tags present in summary if you want
+    # assert "<html>" not in captured.out
+
+
+@pytest.mark.parametrize("bad_input", [None, 123, 5.5, [], {}])
+def test_handle_parsed_article_non_string_input(bad_input):
+    with pytest.raises(Exception):
+        handle_parsed_article(bad_input)
+
+
+def test_handle_parsed_article_malformed_text(capsys):
+    # Simulate corrupted text — you might use a bytes decode error example
+    article_text = "This is normal text\uDC00"  # invalid unicode character
+    try:
+        handle_parsed_article(article_text)
+        captured = capsys.readouterr()
+        assert captured.out.strip() != "" or "error" in captured.out.lower()
+    except Exception:
+        # Accept if it raises, as long as it doesn't crash pytest
+        pass
+
+
+
+
     
