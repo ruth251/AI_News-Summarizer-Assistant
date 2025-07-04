@@ -51,11 +51,10 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
       summariesList.innerHTML = `
         <div class="summary-item">
           <strong>Summary:</strong><br>${result.summary}
-          ${result.question && result.answer ? `<br><br><strong>Q:</strong> ${result.question}<br><strong>A:</strong> ${result.answer}` : ''}
+          ${result.question && result.answer ? `<br><br><strong>Q:</strong> ${result.question}<br><strong>A:</strong> ${result.answer}` : ""}
         </div>`;
       loadSavedSummaries(); // Refresh saved list
     }
-
   } catch (err) {
     summariesList.innerHTML = `<div class="no-summaries">Error generating summary: ${err.message}</div>`;
   }
@@ -90,5 +89,9 @@ async function loadSavedSummaries() {
   }
 }
 
+window.onload = () => {
+  const history = document.querySelector('.summary-history');
+  history.innerHTML = "Summary history is disabled.";
+};
 // Load saved summaries when page loads
-window.onload = loadSavedSummaries;
+// window.onload = loadSavedSummaries;
