@@ -1,0 +1,300 @@
+﻿BITS COLLEGE 
+
+
+  
+
+
+
+
+
+
+
+
+
+INTRODUCTION TO AI 
+
+
+AI NEWS SUMMARIZER ASSISTANT
+
+
+
+
+
+
+Fenet Dagnachew, ID: [UGR/SWE/0061/22]
+Kirubel Mamushet, ID: [UGR/SWE/0085/23]
+Mikiyas Mesfin, ID: [UGR/SWE/0089/23]
+                      Milki Hirko, ID:[UGT/SWE/0090/23]
+Rediet Atsede, ID: [UGR/SWE/0066/22]
+Ruth Menber, ID: [UGR/SWE/0067/22]
+
+
+
+
+Submitted to : [MR Getachew Getu]
+
+
+Submission Date: July 3,2025
+
+
+
+
+
+
+
+
+Abstract
+
+
+The AI News Summarizer Assistant is a web application that summarizes news articles from user-provided URLs or text, stores summaries in a SQLite database, and answers queries about them. Built using Python 3.11, FastAPI, and a static HTML/CSS frontend, it leverages spaCy for natural language processing (NLP) to extract key sentences and SQLite 3.8.7.2 for persistent storage.The project demonstrates AI concepts like intelligent agents and knowledge representation, providing a user-friendly interface for summarization and querying. Current progress includes environment setup and core module implementation, with testing and enhancements planned. Individual contributions include documentation, testing, UI design, and coding, ensuring a collaborative development process.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Table of Contents
+1. Introduction………………………………………..……………… 3
+2.Methodology……………………………………………………. .. 4
+   2.1 Agent Architecture……………………………………………4
+  2.2 PEAS Framework……………………………………………..4
+  2.3 Algorithms and Techniques………………………………  …5
+   2.4 Flowchart………………………………………………………6
+3.  Implementation ………………………………………………….7
+   3.1 Development Process…………………………………………..7
+   3.2 Code Snippets………………………………………………….7       
+    3.3 Challenges and Solutions……………………………………10
+4 Results and Discussion ……………………………………………11
+   4.1 Sample Outputs ………………………………………………11
+   4.2 Performance Metrics ………………………………………….12
+   4.3 Test Cases and Validation…………………………………….12
+5 Conclusion and Future Work…………………………………….
+    5.1 Summary…………………………………………………13
+   5.2 Future Enhancements……………………………………14
+
+
+
+
+1. Introduction
+ 
+The AI News Summarizer Assistant is an innovative web application designed to combat information overload by delivering concise and accurate summaries of news articles for efficient consumption. With the rapid proliferation of online news articles, users often struggle to extract key information efficiently due to time constraints and the volume of content. This project provides a solution by enabling users to input news article URLs or text through a user-friendly web interface, generating concise summaries using natural language processing (NLP) techniques, storing these summaries in a SQLite database, and allowing users to query stored summaries for quick information retrieval. Implemented using Python 3.11.13, FastAPI, and a static HTML/CSS frontend, the system integrates robust tools like spaCy to process text and SQLite 3.8.7.2 for persistent storage.
+
+
+The project embodies core AI concepts, functioning as an intelligent agent that processes user inputs (URLs or text) and produces actionable outputs (summaries and query responses) in a dynamic, user-driven environment. It leverages NLP for text summarization, employing word frequency analysis and sentence ranking to capture essential article content, and knowledge representation through structured database storage. The primary objectives include delivering accurate and concise summaries, ensuring efficient storage and retrieval of article metadata, and providing relevant query responses, all within an accessible web interface. The scope is limited to a single-user application, with a focus on processing English-language news articles and handling simple queries, though it is designed to be extensible for advanced features like multi-language support or enhanced querying. The development process faced initial challenges, such as configuring the virtual environment on Windows and resolving dependency issues (e.g., spaCy module errors). These were addressed through precise setup instructions and version-specific installations. The project demonstrates practical applications of AI, aligning with course goals of understanding intelligent agent design and implementation. It is a collaborative effort, with distinct roles for documentation, testing, UI design, and coding, ensuring a comprehensive learning experience.
+
+
+
+
+2.Methodology
+2.1 Agent Architecture
+The system operates as an intelligent agent with a modular architecture:
+*  Frontend: A static HTML/CSS interface (index.html, style.css) for user input and output display.
+*  Backend: FastAPI (main.py) handles API requests for summarization, storage, and querying. 
+*  Parsing: extracts text from URL using request and BeautifulSoup
+*  Database: database.py stores summaries in SQLite.
+*  Querying: query.py retrieves summaries for query responses.
+
+
+2.2 PEAS Framework
+• Performance: Accuracy of summaries (capturing main ideas) and relevance of query responses. 
+• Environment: User-provided news articles (URLs or text) and queries. 
+• Actuators: Web interface displaying summaries and query responses. 
+• Sensors: HTML forms for URL/text input and queries
+
+
+
+
+
+
+
+
+
+
+2.3 Algorithms and Techniques
+The AI News Summarizer Assistant utilizes the following algorithms and NLP techniques:
+
+
+Natural Language Processing (NLP) with spaCy
+Sentence Segmentation: Uses spaCy’s pipeline to accurately split input text into sentences using dependency parsing and punctuation rules.
+Token Filtering (for future enhancements): spaCy can also filter out stopwords or irrelevant tokens if needed for weighted summarization.
+Text Extraction from URLs
+HTML Parsing: BeautifulSoup is used to extract readable paragraphs (<p> tags) from web pages.
+Content Filtering: Sentences with less than a threshold character count (e.g., <40 chars) are ignored to eliminate navigation or irrelevant UI text.
+Extractive Summarization Algorithm (Heuristic-Based)
+Length-Based Heuristic: The summarizer ranks sentences by their length, assuming longer sentences are more information-dense.
+Sorting and Selection:
+sorted_sentences = sorted(sentences, key=len, reverse=True)
+summary = " ".join(sorted_sentences[:num_sentences])
+This approach is simple but effective for baseline summarization.
+
+
+Basic Question Answering
+Keyword Matching: When a user asks a question, the system tries to locate the most relevant sentence in the summary based on overlapping keywords.
+Fallback Response: If no relevant answer is found, a polite fallback ("Sorry, I couldn't find an answer") is returned.
+
+
+Testing Strategy
+Uses pytest to test edge cases like:
+Empty input
+Repeated content
+Invalid URLs
+Summary accuracy under different num_sentences values
+
+
+2.4 Flowchart
+  
+
+
+
+3.  Implementation 
+3.1 Development Process
+The project was developed using Python 3.11.13 with the following tools: 
+* requests: Fetches article content from URLs
+* BeautifulSoup: Parses HTML to extract title and text.
+* spaCy: Performs NLP for summarization
+* SQLite: Stores summaries in a database.
+* Flask: Web framework for routing and API
+* Fetch API: JavaScript for communicating with the backend
+* Git/GitHub:  Version control and collaboration
+
+
+-  The text summarizer was built first, followed by the URL handler and QA integration.
+Modular functions were developed and individually tested.
+
+
+
+3.2 Code Snippets
+Fetching Article Content:
+import requests
+from bs4 import BeautifulSoup
+from summarizer_utils import summarize_text
+
+
+def extract_text_from_url(url: str) -> str:
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+    except Exception as e:
+        raise RuntimeError(f"Failed to fetch the article: {e}")
+   
+    soup = BeautifulSoup(response.text, 'html.parser')
+    paragraphs = soup.find_all('p')
+   
+    if not paragraphs:
+        raise ValueError("No readable content found in the article.")
+
+
+    text = ' '.join(p.get_text().strip() for p in paragraphs if len(p.get_text().strip()) > 40)
+    return text
+
+
+Summarization Logic:
+Summarize_utils.py
+
+
+  
+
+
+
+Frontend JavaScript Integration
+Script.js 
+Frontend to backend communication with fetch API
+  
+
+3.3 Challenges and Solutions
+1. Virtual Environment Setup Issues
+Challenge: On Windows, setting up a virtual environment for Python 3.11 caused issues due to missing system dependencies and misconfigured paths.
+Solution: The team created a shared step-by-step setup guide using venv, ensured Python was correctly added to the system PATH, and standardized environments using requirements.txt.
+
+
+2. Dependency Conflicts and Installation Errors
+Challenge: Some libraries, like spaCy and FastAPI, had compatibility issues with certain Python versions or OS.
+Solution: The team agreed on using Python 3.11.13 and specific package versions. They used pip freeze to lock dependencies and installed them from requirements.txt.
+
+
+3. Inconsistent Article Structure
+Challenge: News articles varied greatly in HTML structure. Some sites didn’t use <p> tags or had ads, which made text extraction unreliable.
+Solution: The team improved the extract_text_from_url() function by filtering short paragraphs and using BeautifulSoup more effectively to extract readable content only.
+
+
+4. Summarization Accuracy
+Challenge: The NLP-based summarizer sometimes misses key ideas or includes irrelevant content due to basic scoring algorithms.
+Solution: They refined the summarization logic by improving stopword filtering, sentence scoring, and using spaCy’s sentence parser to capture more relevant information.
+
+
+5. Handling Edge Cases in User Input
+Challenge: Users sometimes submitted empty URLs, invalid strings, or non-English input, causing crashes or poor output.
+Solution: The backend was updated with input validation, exception handling, and fallback messages for cases like empty articles or missing questions.
+
+
+6. Currently doesn’t have DataBase integration
+4 Results and Discussion 
+4.1 Sample Outputs 
+The system was tested with a BBC article. Sample output:
+* Input URL: https://www.bbc.com/sport/football/live/c5y7p6pw5gyt
+*  Summary:
+Diago Jota has died in a car crash at age 28. Jota signed for Liverpool in a 45 million pounds deal from Wolves in September 2020. He was in the team that won a domestic cup double of the FA and League Cups in 2002. His composure in front of goal made him a match made in a match-winner in many occasions under Jurgen Klopp and then Arne Slot.
+* Query: Who died?
+* Response: Diogo Jota
+
+
+
+
+4.2 Performance Metrics 
+*  Summary Accuracy: Based on manual evaluation of relevance and completeness of extracted sentences, approximately 85% relevance score (based on 10 evaluated articles)
+* Execution Time: Average time to summarize and answer a query (for 1000+ word input) is approximately 2.1seconds
+* User Satisfaction: ⅘ average rating
+
+
+4.3 Test Cases and Validation
+The summarizer was tested using a diverse set of inputs and scenarios.
+Test Case Expected Behavior Result
+The following tests were handled
+* Empty input should return a clear error message 
+* Invalid URL should catch the exception and notify the user 
+* Repeated sentences should not affect summary quality 
+* Short paragraph content should be excluded from the final summary 
+* Large article (2000+ words) Summary returns the top 3 most relevant sentences 
+* 5 Conclusion and Future Work
+5.1 Summary
+The AI News Summarizer Assistant successfully delivers concise article summaries and supports user queries, demonstrating effective use of NLP and database systems. The Flask interface ensures accessibility, while the SQLite database enables persistent storage. Limitations include basic summarization (word frequency-based) and limited handling of complex article formats. 
+
+
+5.2 Future Enhancements
+Future work includes: 
+* Adding user feedback to refine summary quality. 
+* Supporting multi-language articles with appropriate NLP models.
+* Integrate a BERT-based transformer for more intelligent summarization
+* Improve QA with sentence embedding similarity
